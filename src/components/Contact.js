@@ -1,6 +1,6 @@
 import { useState } from "react"
 import { Container, Col, Row } from "react-bootstrap";
-import contactImg from "../assets/img/contact-img.svg"
+import Coding from "../assets/img/coding.svg"
 export const Contact =() => {
     const formInitalDetails = {
         firstName:'',
@@ -43,7 +43,7 @@ export const Contact =() => {
             <Container>
                 <Row className="align-items-center">
                     <Col md={6}>
-                        
+                        <img src={Coding} alt="placeholderimage"/>
                     </Col>
                     <Col md={6}>
                         <h2>Get in touch</h2>

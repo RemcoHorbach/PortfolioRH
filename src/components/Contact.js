@@ -94,9 +94,11 @@ export const Contact = () => {
                   <button type="submit" onClick={handleSubmit}><span>{buttonText}</span></button>
                 </Col>
                 {status.message && (
-                  <Col>
-                    <p className={status.success === false ? "danger" : "success"}>{status.message}</p>
-                  </Col>
+                 <Col>
+                 <p className={`status-message ${status.success === false ? "danger" : "success"}`}>
+                   {status.message}
+                 </p>
+               </Col>
                 )}
               </Row>
             </form>

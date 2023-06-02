@@ -3,7 +3,6 @@ import Container from 'react-bootstrap/Container';
 import Nav from 'react-bootstrap/Nav';
 import logo from '../assets/img/logo.png'
 import navIcon1 from '../assets/img/nav-icon1.svg'
-import navIcon3 from '../assets/img/nav-icon3.svg'
 import Navbar from 'react-bootstrap/Navbar';
 
 export const NavBar = () => {
@@ -46,8 +45,6 @@ export const NavBar = () => {
                   <span className="navbar-text">
                     <div className="social-icon">
                         <a href="https://www.linkedin.com/in/remco-horbach/" target="_blank"><img src={navIcon1} alt=""/></a>
-                        <a href="#"><img src={navIcon3} alt=""/></a>
-
                     </div>
                     <button className='vvd' onClick={()=> console.log('connect')}><span>Let's Connect</span></button>
                   </span>

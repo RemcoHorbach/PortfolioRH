@@ -1,38 +1,32 @@
 const express = require("express");
-const router = express.Router();
-const cors = require("cors");
 const nodemailer = require("nodemailer");
+require('dotenv').config();
 
-// server used to send send emails
 const app = express();
-app.use(cors());
+
 app.use(express.json());
-app.use("/", router);
-app.listen(5000, () => console.log("Server Running"));
-console.log(process.env.EMAIL_USER);
-console.log(process.env.EMAIL_PASS);
 
-const contactEmail = nodemailer.createTransport({
-  service: 'gmail',
-  auth: {
-    user: "horbachremco@gmail.com",
-    pass: ""
-  },
+app.use((req, res, next) => {
+  res.setHeader('Access-Control-Allow-Origin', '*');
+  res.setHeader('Access-Control-Allow-Methods', 'POST');
+  res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
+  next();
 });
 
-contactEmail.verify((error) => {
-  if (error) {
-    console.log(error);
-  } else {
-    console.log("Ready to Send");
-  }
-});
-
-router.post("/contact", (req, res) => {
-  const name = req.body.firstName + req.body.lastName;
+app.post("/contact", (req, res) => {
+  const name = req.body.firstName +" "+ req.body.lastName;
   const email = req.body.email;
   const message = req.body.message;
   const phone = req.body.phone;
+
+  const contactEmail = nodemailer.createTransport({
+    service: 'gmail',
+    auth: {
+      user: process.env.EMAIL_USER,
+      pass: process.env.EMAIL_PASS
+    },
+  });
+
   const mail = {
     from: name,
     to: "horbachremco@gmail.com",
@@ -42,11 +36,14 @@ router.post("/contact", (req, res) => {
            <p>Phone: ${phone}</p>
            <p>Message: ${message}</p>`,
   };
-  contactEmail.sendMail(mail, (error) => {
+
+  contactEmail.sendMail(mail, (error, info) => {
     if (error) {
-      res.json(error);
+      res.status(500).send(error.message);
     } else {
-      res.json({ code: 200, status: "Message Sent" });
+      res.status(200).send({ code: 200, status: "Message Sent" });
     }
   });
 });
+
+app.listen(3000, () => console.log("Server Running on port 3000"));
